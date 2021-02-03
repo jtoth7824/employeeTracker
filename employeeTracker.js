@@ -282,7 +282,6 @@ const updateData = () => {
         case 'Employee Role':
           const query = 'SELECT * FROM Employee';
           connection.query(query, (err, res) => {
-            //          console.table(res);
             employeeNames = [];
             for (let i = 0; i < res.length; i++) {
               employeeNames.push(res[i]);
@@ -315,12 +314,9 @@ const updateEmpMgr = () => {
           choices() {
             const choiceArray = [];
             results.forEach(({ first_name, last_name }) => {
-//              console.log(last_name);
               temp = first_name + ' ' + last_name;
               choiceArray.push(temp);
- //             console.log(choiceArray[last_name]);
             });
-//            console.log('choice array ' + choiceArray.last_name);
             return john = choiceArray;
           },
           message: 'Which employee would you like to update manager for?',
@@ -550,22 +546,52 @@ const deleteRole = () => {
 };
 
 const deleteEmp = () => {
-  inquirer
-    .prompt({
-      name: 'deleteEmp',
-      type: 'input',
-      message: 'Which Employee do you want to delete?',
-    })
-    .then((answer) => {
-      connection.query(
-        'DELETE FROM Department WHERE ?', {
-          id: answer.deleteEmp
+  john = [];
+  // query the database for all items being auctioned
+  connection.query('SELECT * FROM employee', (err, results) => {
+    if (err) throw err;
+    // once you have the items, prompt the user for which they'd like to bid on
+    inquirer
+      .prompt([
+        {
+          name: 'choice',
+          type: 'rawlist',
+          choices() {
+            const choiceArray = [];
+            results.forEach(({ first_name, last_name }) => {
+              temp = first_name + ' ' + last_name;
+              choiceArray.push(temp);
+            });
+            return john = choiceArray;
+          },
+          message: 'Which employee would you like to delete?',
         },
-        (err, res) => {
-          runTracker();
-        }
-      );
-    });
+      ])
+      .then((answer) => {
+        // get the information of the chosen item
+        let chosenName;
+        john.forEach((name, index) => {
+          var temp1 = john[0].split(" ");
+          console.log(name);
+          if ( john[index].split(" ")[1] === temp1[1]) {
+            chosenName = index;
+          }
+        });
+
+          var query = 'DELETE FROM employee WHERE ?';
+          connection.query(
+            query,
+            [ {
+                id: chosenName +1,
+              },
+            ],
+            (error) => {
+              if (error) throw err;
+              runTracker();
+            }
+          );
+      });
+  });
 };
 
 const songAndAlbumSearch = () => {
