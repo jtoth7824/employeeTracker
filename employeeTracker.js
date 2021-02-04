@@ -106,7 +106,7 @@ const addDepartment = () => {
       message: 'Please enter name of Department: ',
     })
     .then((answer) => {
-      const query = 'INSERT INTO Department SET ?'
+      const query = 'INSERT INTO Department SET ?';
       connection.query(query, {
         name: answer.name
       }, (err, res) => {
@@ -134,7 +134,7 @@ const addRole = () => {
       }
     ])
     .then((answer) => {
-      const query = 'INSERT INTO Role SET ?'
+      const query = 'INSERT INTO Role SET ?';
       connection.query(query, {
         title: answer.title,
         salary: answer.salary,
@@ -191,6 +191,7 @@ const viewData = () => {
         'Department',
         'Role',
         'Employee',
+        'View All Employees',
         'Employee By Manager',
         'Total Utilized Budget',
       ],
@@ -207,6 +208,10 @@ const viewData = () => {
 
         case 'Employee':
           viewEmployee();
+          break;
+
+        case 'View All Employees':
+          viewAllEmployees();
           break;
 
         case 'Employee by Manager':
@@ -233,7 +238,6 @@ const viewDepartment = () => {
     for (let i = 0; i < res.length; i++) {
       deptNames.push(res[i]);
     }
-    console.log(deptNames);
     runTracker();
   });
 };
@@ -247,7 +251,6 @@ const viewRole = () => {
     for (let i = 0; i < res.length; i++) {
       roleNames.push(res[i]);
     }
-    console.log(roleNames);
     runTracker();
   });
 };
@@ -261,7 +264,32 @@ const viewEmployee = () => {
     for (let i = 0; i < res.length; i++) {
       employeeNames.push(res[i]);
     }
-    console.log(employeeNames);
+    runTracker();
+  });
+};
+
+const viewEmpByMgr = () => {
+  const query =
+    'SELECT * FROM Employee';
+  connection.query(query, (err, res) => {
+    console.table(res);
+    employeeNames = [];
+    for (let i = 0; i < res.length; i++) {
+      employeeNames.push(res[i]);
+    }
+    runTracker();
+  });
+};
+
+const viewBudget = () => {
+  const query =
+    'SELECT * FROM Employee';
+  connection.query(query, (err, res) => {
+    console.table(res);
+    employeeNames = [];
+    for (let i = 0; i < res.length; i++) {
+      employeeNames.push(res[i]);
+    }
     runTracker();
   });
 };
@@ -300,116 +328,162 @@ const updateData = () => {
       }
     });
 };
-var john = [];
+
 const updateEmpMgr = () => {
+  let empID;
+  let newMgr;
   // query the database for all items being auctioned
   connection.query('SELECT * FROM employee', (err, results) => {
     if (err) throw err;
     // once you have the items, prompt the user for which they'd like to bid on
     inquirer
-      .prompt([
-        {
+      .prompt([{
           name: 'choice',
           type: 'rawlist',
           choices() {
             const choiceArray = [];
-            results.forEach(({ first_name, last_name }) => {
+            results.forEach(({first_name,last_name  }) => {
               temp = first_name + ' ' + last_name;
               choiceArray.push(temp);
             });
-            return john = choiceArray;
+            return choiceArray;
           },
           message: 'Which employee would you like to update manager for?',
         },
-        {
-          name: 'updatedID',
-          type: 'input',
-          message: 'What is the new manager ID for the selected employee?',
-        }
       ])
       .then((answer) => {
         // get the information of the chosen item
-        let chosenName;
-        john.forEach((name, index) => {
-          var temp1 = john[0].split(" ");
-          console.log(name);
-          if ( john[index].split(" ")[1] === temp1[1]) {
-            chosenName = index;
+        results.forEach((name) => {
+//          var temp1 = john[0].split(" ");
+          if (name.last_name === answer.choice.split(" ")[1]) {
+            empID = name.id;
           }
         });
-
-          var query = 'UPDATE employee SET ? WHERE ?';
-          connection.query(
-            query,
-            [{
-                manager_id: answer.updatedID,
+        connection.query('SELECT * FROM employee', (err, results) => {
+          if (err) throw err;
+          // once you have the items, prompt the user for which they'd like to bid on
+          inquirer
+            .prompt([{
+                name: 'choice',
+                type: 'rawlist',
+                choices() {
+                  const choiceArray = [];
+                  results.forEach(({ first_name,last_name}) => {
+                    temp = first_name + ' ' + last_name;
+                    choiceArray.push(temp);
+                  });
+                  return choiceArray;
+                },
+                message: 'Whhat is the new manager for the selected employee?',
               },
-              {
-                id: chosenName +1,
-              },
-            ],
-            (error) => {
-              if (error) throw err;
-              runTracker();
-            }
-          );
+            ])
+            .then((answer) => {
+              // get the information of the chosen item
+              results.forEach((name) => {
+      //          var temp1 = john[0].split(" ");
+                if (name.last_name === answer.choice.split(" ")[1]) {
+                  newMgr = name.id;
+                }
+              });
+              var query = 'UPDATE employee SET ? WHERE ?';
+              connection.query(
+                query,
+                [{
+                    manager_id: newMgr,
+                  },
+                  {
+                    id: empID,
+                  },
+                ],
+                (error) => {
+                  if (error) throw err;
+                  runTracker();
+                }
+              );
+            });
       });
   });
-};
+});
+}
 
 const updateEmpRole = () => {
-  john = [];
+  //  john = [];
+  let empId;
+  let newRole;
   // query the database for all items being auctioned
   connection.query('SELECT * FROM employee', (err, results) => {
     if (err) throw err;
     // once you have the items, prompt the user for which they'd like to bid on
     inquirer
-      .prompt([
-        {
-          name: 'choice',
-          type: 'rawlist',
-          choices() {
-            const choiceArray = [];
-            results.forEach(({ first_name, last_name }) => {
-              temp = first_name + ' ' + last_name;
-              choiceArray.push(temp);
-            });
-            return john = choiceArray;
-          },
-          message: 'Which employee would you like to update Role for?',
+      .prompt([{
+        name: 'choice',
+        type: 'rawlist',
+        choices() {
+          const choiceArray = [];
+          results.forEach(({
+            first_name,
+            last_name
+          }) => {
+            temp = first_name + ' ' + last_name;
+            choiceArray.push(temp);
+          });
+          return choiceArray;
         },
-        {
-          name: 'updatedRole',
-          type: 'input',
-          message: 'What is the new Role ID for the selected employee?',
-        }
-      ])
+        message: 'Which employee would you like to update Role for?',
+      }, ])
       .then((answer) => {
         // get the information of the chosen item
-        let chosenName;
-        john.forEach((name, index) => {
-          var temp1 = john[0].split(" ");
-          console.log(name);
-          if ( john[index].split(" ")[1] === temp1[1]) {
-            chosenName = index;
+        results.forEach((name) => {
+          var temp1 = answer.choice.split(" ");
+          if (name.last_name === temp1[1]) {
+            empId = name.id;
           }
-        });
+          console.log('empId ' + empId);
 
-          var query = 'UPDATE employee SET ? WHERE ?';
-          connection.query(
-            query,
-            [{
-                role_id: answer.updatedRole,
+        });
+        connection.query('SELECT * FROM role', (err, results) => {
+          if (err) throw err;
+          // once you have the items, prompt the user for which they'd like to bid on
+          inquirer
+            .prompt([{
+              name: 'updatedRole',
+              type: 'rawlist',
+              choices() {
+                const choiceArray = [];
+                results.forEach(({
+                  title
+                }) => {
+                  choiceArray.push(title);
+                });
+                return choiceArray;
               },
-              {
-                id: chosenName +1,
-              },
-            ],
-            (error) => {
-              if (error) throw err;
-              runTracker();
-            }
-          );
+              message: 'What is the new Role for the selected employee?',
+            }, ])
+            .then((answer) => {
+              // get the information of the chosen item
+              results.forEach((role) => {
+                if (role.title === answer.updatedRole) {
+                  newRole = role.id;
+                }
+                console.log('newMgr ' + newRole);
+              });
+              var query = 'UPDATE employee SET ? WHERE ?';
+              connection.query(
+                query,
+                [{
+                    role_id: newRole,
+                  },
+                  {
+                    id: empId,
+                  },
+                ],
+                (error) => {
+                  if (error) throw err;
+                  runTracker();
+                }
+              );
+            });
+        });
       });
   });
 };
@@ -454,44 +528,42 @@ const deleteDept = () => {
     if (err) throw err;
     // once you have the items, prompt the user for which they'd like to bid on
     inquirer
-      .prompt([
-        {
-          name: 'choice',
-          type: 'rawlist',
-          choices() {
-            const choiceArray = [];
-            results.forEach(({ name }) => {
-              choiceArray.push(name);
-            });
-            return john = choiceArray;
-          },
-          message: 'Which department would you like to delete?',
+      .prompt([{
+        name: 'choice',
+        type: 'rawlist',
+        choices() {
+          const choiceArray = [];
+          results.forEach(({
+            name
+          }) => {
+            choiceArray.push(name);
+          });
+          return john = choiceArray;
         },
-      ])
+        message: 'Which department would you like to delete?',
+      }, ])
       .then((answer) => {
         // get the information of the chosen item
         let chosenName;
         console.log(john);
         john.forEach((name, index) => {
-//          var temp1 = john[0].split(" ");
           console.log(name);
-          if ( name === answer.choice) {
+          if (name === answer.choice) {
             chosenName = index;
           }
         });
 
-          var query = 'DELETE FROM department WHERE ?';
-          connection.query(
-            query,
-            [ {
-                id: chosenName +1,
-              },
-            ],
-            (error) => {
-              if (error) throw err;
-              runTracker();
-            }
-          );
+        var query = 'DELETE FROM department WHERE ?';
+        connection.query(
+          query,
+          [{
+            id: chosenName + 1,
+          }, ],
+          (error) => {
+            if (error) throw err;
+            runTracker();
+          }
+        );
       });
   });
 };
@@ -503,44 +575,42 @@ const deleteRole = () => {
     if (err) throw err;
     // once you have the items, prompt the user for which they'd like to bid on
     inquirer
-      .prompt([
-        {
-          name: 'choice',
-          type: 'rawlist',
-          choices() {
-            const choiceArray = [];
-            results.forEach(({ title }) => {
-              choiceArray.push(title);
-            });
-            return john = choiceArray;
-          },
-          message: 'Which role would you like to delete?',
+      .prompt([{
+        name: 'choice',
+        type: 'rawlist',
+        choices() {
+          const choiceArray = [];
+          results.forEach(({
+            title
+          }) => {
+            choiceArray.push(title);
+          });
+          return john = choiceArray;
         },
-      ])
+        message: 'Which role would you like to delete?',
+      }, ])
       .then((answer) => {
         // get the information of the chosen item
         let chosenName;
         console.log(john);
         john.forEach((name, index) => {
-//          var temp1 = john[0].split(" ");
           console.log(name);
-          if ( name === answer.choice) {
+          if (name === answer.choice) {
             chosenName = index;
           }
         });
 
-          var query = 'DELETE FROM role WHERE ?';
-          connection.query(
-            query,
-            [ {
-                id: chosenName +1,
-              },
-            ],
-            (error) => {
-              if (error) throw err;
-              runTracker();
-            }
-          );
+        var query = 'DELETE FROM role WHERE ?';
+        connection.query(
+          query,
+          [{
+            id: chosenName + 1,
+          }, ],
+          (error) => {
+            if (error) throw err;
+            runTracker();
+          }
+        );
       });
   });
 };
@@ -552,67 +622,60 @@ const deleteEmp = () => {
     if (err) throw err;
     // once you have the items, prompt the user for which they'd like to bid on
     inquirer
-      .prompt([
-        {
-          name: 'choice',
-          type: 'rawlist',
-          choices() {
-            const choiceArray = [];
-            results.forEach(({ first_name, last_name }) => {
-              temp = first_name + ' ' + last_name;
-              choiceArray.push(temp);
-            });
-            return john = choiceArray;
-          },
-          message: 'Which employee would you like to delete?',
+      .prompt([{
+        name: 'choice',
+        type: 'rawlist',
+        choices() {
+          const choiceArray = [];
+          results.forEach(({
+            first_name,
+            last_name
+          }) => {
+            temp = first_name + ' ' + last_name;
+            choiceArray.push(temp);
+          });
+          return john = choiceArray;
         },
-      ])
+        message: 'Which employee would you like to delete?',
+      }, ])
       .then((answer) => {
         // get the information of the chosen item
         let chosenName;
         john.forEach((name, index) => {
           var temp1 = john[0].split(" ");
           console.log(name);
-          if ( john[index].split(" ")[1] === temp1[1]) {
+          if (john[index].split(" ")[1] === temp1[1]) {
             chosenName = index;
           }
         });
 
-          var query = 'DELETE FROM employee WHERE ?';
-          connection.query(
-            query,
-            [ {
-                id: chosenName +1,
-              },
-            ],
-            (error) => {
-              if (error) throw err;
-              runTracker();
-            }
-          );
+        var query = 'DELETE FROM employee WHERE ?';
+        connection.query(
+          query,
+          [{
+            id: chosenName + 1,
+          }, ],
+          (error) => {
+            if (error) throw err;
+            runTracker();
+          }
+        );
       });
   });
 };
 
-const songAndAlbumSearch = () => {
-  inquirer
-    .prompt({
-      name: 'artist',
-      type: 'input',
-      message: 'What artist would you like to search for?',
-    })
-    .then((answer) => {
-      let query =
-        'SELECT top_albums.year, top_albums.album, top_albums.position, top5000.song, top5000.artist ';
-      query +=
-        'FROM top_albums INNER JOIN top5000 ON (top_albums.artist = top5000.artist AND top_albums.year ';
-      query +=
-        '= top5000.year) WHERE (top_albums.artist = ? AND top5000.artist = ?) ORDER BY top_albums.year, top_albums.position';
-
-      connection.query(query, [answer.artist, answer.artist], (err, res) => {
-
-
-        runSearch();
-      });
-    });
+const viewAllEmployees = () => {
+  let query =
+    'SELECT e.id, e.first_name, e.last_name, role.title, department.name AS department, role.salary, IFNULL(CONCAT(m.first_name, " ", m.last_name), "null") AS manager ';
+  query +=
+    'FROM employee e LEFT JOIN employee m on m.id = e.manager_id ';
+  query +=
+    'INNER JOIN role ON e.role_id = role.id ';
+  query +=
+    'INNER JOIN department ON department.id = role.dept_id';
+  connection.query(query, (err, res) => {
+    if (err) throw err;
+    console.table(res);
+    runTracker();
+  });
 };
