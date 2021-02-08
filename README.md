@@ -56,12 +56,26 @@ Please email me for further information jtoth7824@gmail.com
 <div>mySQL</div>
 <div>Javascript</div>
 <div>npm</div>
+<div>inquirer</div>
 
 ## Video
 
 Due to there being no front end to this project that a user can open in a browser, please view the following video link to get a feel for how the command line application is executed and types of inputs required by the user in order to generate the team profile.
 
-https://drive.google.com/file/d/1dMmgd3qgIDM8XDGsh29zjFfZj8kDA0Og/view?usp=sharing
+Due to limit on Screencastify video limiting us to 5 minutes, I have recorded 4 short videos - one for each operation of CRUD.
+
+### view data
+https://drive.google.com/file/d/1fvK3-NwZH7Yf-UvJcNltxiG798uKDm-X/view?usp=sharing
+
+### add data
+https://drive.google.com/file/d/19jsz2wY62gkj-VScgdu75wjM9lYWugZ0/view?usp=sharing
+
+### update data
+https://drive.google.com/file/d/1otkA8BqcynAB6hv6da0zDpVSgkBvi9OV/view?usp=sharing
+
+### delete data
+https://drive.google.com/file/d/1w8cZnOBAC1JEZGAyNsebuMjJdY4SZIvo/view?usp=sharing
+
 
 ## Repository
 
