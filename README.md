@@ -24,12 +24,136 @@ Most of the result sets returned from the SQL queries were manipulated to displa
 * [Output](#Output)
 
 ## Screenshots
- 
-The following is a screenshot of the Team Profile Generator application.
+
+Screen shots are grouped by View, Add, Update and Delete functions.   See Screenshot Table of Contents below:
+
+* [View](#View)
+* [Add](#Add)
+* [Update](#Update)
+* [Delete](#Delete)
+
+The following is a screenshot of the Employee Tracker application Main menu.
 
 <p align="center">
-  <img src="./Develop/images/teamProfileGenerator.png" alt="Team Profile Generator application screenshot">
+  <img src="./images/employeeTrackerMainMenu.png" alt="Employee tracker application main menu screenshot">
 </p>
+
+## View
+
+The following is a screenshot of the Employee Tracker application View menu.
+
+<p align="center">
+  <img src="./images/employeeTrackerViewMenu.png" alt="Employee tracker application view menu screenshot">
+</p>
+
+The following is a screenshot of the Employee Tracker application View Department results.
+
+<p align="center">
+  <img src="./images/employeeTrackerViewDept.png" alt="Employee tracker application view department screenshot">
+</p>
+
+The following is a screenshot of the Employee Tracker application View Role results.
+
+<p align="center">
+  <img src="./images/employeeTrackerViewRole.png" alt="Employee tracker application view role screenshot">
+</p>
+
+The following is a screenshot of the Employee Tracker application View Employee results.
+
+<p align="center">
+  <img src="./images/employeeTrackerViewEmployee.png" alt="Employee tracker application view employee screenshot">
+</p>
+
+The following is a screenshot of the Employee Tracker application View Employee by Manager results.
+
+<p align="center">
+  <img src="./images/employeeTrackerViewEmpByMgr.png" alt="Employee tracker application view employee by manager screenshot">
+</p>
+
+The following is a screenshot of the Employee Tracker application View All Employees results.
+
+<p align="center">
+  <img src="./images/employeeTrackerViewAllEmp.png" alt="Employee tracker application view all employees screenshot">
+</p>
+
+The following is a screenshot of the Employee Tracker application View Total Budget results.
+
+<p align="center">
+  <img src="./images/employeeTrackerTotalBudget.png" alt="Employee tracker application view total department budget screenshot">
+</p>
+
+## Add
+
+The following is a screenshot of the Employee Tracker application Add Menu.
+
+<p align="center">
+  <img src="./images/employeeTrackerAddMenu.png" alt="Employee tracker application Add menu screenshot">
+</p>
+
+The following is a screenshot of the Employee Tracker application Add Department option.
+
+<p align="center">
+  <img src="./images/employeeTrackerAddDept.png" alt="Employee tracker application add department screenshot">
+</p>
+
+The following is a screenshot of the Employee Tracker application Add Role option.
+
+<p align="center">
+  <img src="./images/employeeTrackerAddRole.png" alt="Employee tracker application add role screenshot">
+</p>
+
+The following is a screenshot of the Employee Tracker application Add Employee option.
+
+<p align="center">
+  <img src="./images/employeeTrackerAddEmployee.png" alt="Employee tracker application add employee screenshot">
+</p>
+
+## Update
+
+The following is a screenshot of the Employee Tracker application Update menu.
+
+<p align="center">
+  <img src="./images/employeeTrackerUpdateMenu.png" alt="Employee tracker application update menu screenshot">
+</p>
+
+The following is a screenshot of the Employee Tracker application Update Employee Role option.
+
+<p align="center">
+  <img src="./images/employeeTrackerUpdateEmpRole.png" alt="Employee tracker application update employee role screenshot">
+</p>
+
+The following is a screenshot of the Employee Tracker application Update Employee Manager option.
+
+<p align="center">
+  <img src="./images/employeeTrackerUpdateEmpMgr.png" alt="Employee tracker application update employee manager screenshot">
+</p>
+
+## Delete
+
+The following is a screenshot of the Employee Tracker application Delete menu.
+
+<p align="center">
+  <img src="./images/employeeTrackerDeleteMenu.png" alt="Employee tracker application delete menu screenshot">
+</p>
+
+The following is a screenshot of the Employee Tracker application Delete Department option.
+
+<p align="center">
+  <img src="./images/employeeTrackerDeleteDept.png" alt="Employee tracker application delete department screenshot">
+</p>
+
+The following is a screenshot of the Employee Tracker application Delete Role option.
+
+<p align="center">
+  <img src="./images/employeeTrackerDeleteRole.png" alt="Employee tracker application delete role screenshot">
+</p>
+
+The following is a screenshot of the Employee Tracker application Delete Employee option.
+
+<p align="center">
+  <img src="./images/employeeTrackerDeleteEmp.png" alt="Employee tracker application delete employee screenshot">
+</p>
+
 
 ## Installation
 
@@ -60,9 +184,9 @@ Please email me for further information jtoth7824@gmail.com
 
 ## Video
 
-Due to there being no front end to this project that a user can open in a browser, please view the following video link to get a feel for how the command line application is executed and types of inputs required by the user in order to generate the team profile.
+Due to there being no front end to this project that a user can open in a browser, please view the following video links to get a feel for how the application is executed and types of options available to user to interact with the database tables.
 
-Due to limit on Screencastify video limiting us to 5 minutes, I have recorded 4 short videos - one for each operation of CRUD.
+Due to limit on Screencastify of 5 minutes, I have recorded 4 short videos - one for each operation of CRUD.
 
 ### view data
 https://drive.google.com/file/d/1fvK3-NwZH7Yf-UvJcNltxiG798uKDm-X/view?usp=sharing

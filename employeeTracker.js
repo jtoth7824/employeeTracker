@@ -699,7 +699,6 @@ const deleteDept = () => {
         // SQL query to find all the employees who match the role selected
         connection.query('SELECT * FROM employee INNER JOIN role ON role.id = employee.role_id WHERE role.dept_id = ?', [deptID], (err, results) => {
           if(err) throw err;
-          console.table(results);
           // loop to find sql query results for employees who belong to department selected by user
           results.forEach((index) => {
             // push results to array
