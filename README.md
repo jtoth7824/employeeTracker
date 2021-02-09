@@ -160,12 +160,12 @@ The following is a screenshot of the Employee Tracker application Delete Employe
 * Install node.js to computer, if not already present.
     * Node.js can be installed from [here](https://nodejs.org/en/)
 * Copy all the application files locally to one's machine.
-* In a terminal window where you copied the files, install 'inquirer' and 'mysql' using node package manager (npm)
+* In a terminal window where you copied the files, install 'inquirer', 'console.table' and 'mysql' using node package manager (npm)
     * **npm install**
 
 ## Usage
 
-This application requires Node.js to be installed.  It also requires the user to have installed 'Inquirer' and 'mySQL' via npm.  (See [Installation](#installation) section.)  Once these items have been installed, the user can launch the application from a terminal window as follows:
+This application requires Node.js to be installed.  It also requires the user to have installed 'Inquirer', 'console.table' and 'mySQL' via npm.  (See [Installation](#installation) section.)  Once these items have been installed, the user can launch the application from a terminal window as follows:
 
 **node employeeTracker.js**
 
