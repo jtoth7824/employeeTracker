@@ -273,6 +273,7 @@ const addEmployee = () => {
                       // push concatenated employee name to array
                       choiceArray.push(first_name + ' ' + last_name);
                     });
+                    choiceArray.push('None');
                     // return array of names to display to user
                     return choiceArray;
                   },
@@ -284,6 +285,10 @@ const addEmployee = () => {
                   if (item.last_name === answer.manager.split(" ")[1]) {
                     // save the employee id of the name selected as manager
                     mgr = item.id;
+                  }
+                  else {
+                    // employee has no manager
+                    mgr = null;
                   }
                 });
                 // SQL query to add employee data to the employee table
