@@ -286,7 +286,7 @@ const addEmployee = () => {
                     // save the employee id of the name selected as manager
                     mgr = item.id;
                   }
-                  else {
+                  else if(answer.manager === 'None') {
                     // employee has no manager
                     mgr = null;
                   }
