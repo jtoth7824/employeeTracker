@@ -41,9 +41,9 @@ viewDepartment() {
   viewEmpByMgr() {
     // SQL query doing self join on employee table to display employees by their manager
     let query =
-      'SELECT e.id, CONCAT(e.first_name, " ", e.last_name) AS name, IFNULL(CONCAT(m.first_name, " ", m.last_name), "(No Manager)") AS manager ';
+      'SELECT CONCAT(m.first_name, " ", m.last_name) AS name, IFNULL(CONCAT(e.first_name, " ", e.last_name), "(No Manager)") AS manager ';
     query +=
-      'FROM employee e LEFT JOIN employee m on m.id = e.manager_id ';
+      'FROM employee m LEFT JOIN employee e on e.id = m.manager_id ORDER BY m.manager_id';
     eTracker.connection.query(query, (err, res) => {
       if (err) throw err;
       // display data in table format using npm package
